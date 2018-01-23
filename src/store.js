@@ -1,7 +1,7 @@
 import {createStore, combineReducers} from 'redux'
 import changeTextReducer from './state/changeText'
 
-const reducer = combineReducers({
+const reducer = combineReducers({  //reducery w store
     changeText: changeTextReducer
 })
 

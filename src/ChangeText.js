@@ -4,7 +4,7 @@ import Paper from 'material-ui/Paper'
 import RaisedButton from 'material-ui/RaisedButton'
 
 import {connect} from 'react-redux'
-import {addTask, deleteTask} from './state/changeText'
+import {changeTextAction} from './state/changeText'
 
 
 const styles = {
@@ -15,7 +15,7 @@ const styles = {
 
 
 class ChangeText extends React.Component {
-    state = {
+    state = { // wewnetrzny stan komponentu
         currentText: ''
     }
 
@@ -23,7 +23,7 @@ class ChangeText extends React.Component {
         return (
             <div>
                 <Paper style={styles}>
-                    <h1>{this.state.currentText}</h1>
+                    <h1>{this.props.displayedText}</h1>
                 </Paper>
                 <Paper style={styles}>
                     <TextField
@@ -33,7 +33,7 @@ class ChangeText extends React.Component {
                         fullWidth={true}
                     />
                     <RaisedButton
-                        onClick={() => this.props.addTask(this.state.currentText)}
+                        onClick={() => this.props.handleButtonClick(this.state.currentText)}
                         label={"CHANGE TEXT"}
                         primary={true}
                         fullWidth={true}
@@ -44,18 +44,17 @@ class ChangeText extends React.Component {
     }
 }
 
-// const mapStateToProps = state => ({  //DISPATCHER all below; ten laczy kawalski stanu
-//     tasks: state.todo.tasks
-// })
-//
-// const mapDispatchToProps = dispatch => ({ //ten laczy akcje
-//     addTask: name => dispatch(addTask(name)),
-//     deleteTask: key => dispatch(deleteTask(key))
-// })
-//
-// export default connect(
-//     mapStateToProps,
-//     mapDispatchToProps
-// )(ChangeText)
+const mapStateToProps = state => ({  //DISPATCHER all below; ten laczy kawalski stanu
+    displayedText: state.changeText.text  //state.reducer.text??
+})
 
-export default ChangeText
+const mapDispatchToProps = dispatch => ({ //ten laczy akcje
+    handleButtonClick: (newText) => dispatch(changeTextAction(newText))
+})
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ChangeText)
+
+//export default ChangeText

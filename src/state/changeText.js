@@ -1,27 +1,27 @@
 const CHANGE_TEXT = 'changeText/CHANGE_TEXT'
 
 
-export const changeText = name => ({  //ACTION
+export const changeTextAction = newText => ({  //ACTION CREATOR ---> tworzy obiekt akcji ACTION
     type: CHANGE_TEXT,
-    name //name:name
+    newText //newText:newText
 })
 
 
 
 
 const initialState = {
-    text: []
+    text: ''
 }
 
 
 
 
-export default (state = initialState, action) => {  //REDUCER
+export default (state = initialState, action) => {  //REDUCER, zwraca nowy stan na podstawie akcji
     switch (action.type) {
         case CHANGE_TEXT:
             return {
                 ...state,
-                text: state.text[{name: action.name}]
+                text: action.newText
             }
         default:
             return state
